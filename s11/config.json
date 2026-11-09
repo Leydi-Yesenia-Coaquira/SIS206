@@ -1,0 +1,13 @@
+{
+  "formatos": [
+    "txt",
+    "csv",
+    "html"
+  ],
+  "estudiante": "2023001",
+  "notas": {
+    "POO II": 16.5,
+    "Estructuras Discretas": 14.0,
+    "Calculo": 12.75
+  }
+}

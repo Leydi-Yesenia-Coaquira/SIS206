@@ -1,0 +1,81 @@
+@startuml uml_integrado
+title Biblioteca Digital Huata - Singleton + Factory Method + Abstract Factory
+skinparam classAttributeIconSize 0
+
+package "singleton/" {
+  class SingletonMeta <<metaclass>> {
+    - _instancias : dict
+    + __call__() : object
+  }
+  class Logger <<Singleton>> {
+    + info(modulo, mensaje) : void
+  }
+  class Config <<Singleton>> {
+    + entorno : str
+    + ui : str
+  }
+  SingletonMeta <.. Logger : metaclass
+  SingletonMeta <.. Config : metaclass
+}
+
+package "factory/" {
+  abstract class FabricaRepositorio {
+    + {abstract} crear_repositorio() : Repositorio
+    + preparar() : Repositorio
+  }
+  class FabricaMemoria
+  class FabricaArchivo
+  class FabricaBD
+  abstract class Repositorio {
+    + {abstract} guardar(codigo, titulo) : void
+    + {abstract} listar() : list
+  }
+  class RepositorioMemoria
+  class RepositorioArchivo
+  class RepositorioBD
+
+  FabricaRepositorio <|-- FabricaMemoria
+  FabricaRepositorio <|-- FabricaArchivo
+  FabricaRepositorio <|-- FabricaBD
+  Repositorio <|-- RepositorioMemoria
+  Repositorio <|-- RepositorioArchivo
+  Repositorio <|-- RepositorioBD
+  FabricaMemoria ..> RepositorioMemoria : crea
+  FabricaArchivo ..> RepositorioArchivo : crea
+  FabricaBD ..> RepositorioBD : crea
+}
+
+package "ui_factory/" {
+  abstract class UIFactory {
+    + {abstract} crear_ventana() : VentanaPrincipal
+    + {abstract} crear_menu() : MenuNavegacion
+    + {abstract} crear_tabla() : TablaResultados
+  }
+  class UIFactoryTkinter
+  class UIFactoryPyQt5
+  abstract class VentanaPrincipal
+  abstract class MenuNavegacion
+  abstract class TablaResultados
+  class FormularioBusqueda {
+    + mostrar() : void
+  }
+  UIFactory <|-- UIFactoryTkinter
+  UIFactory <|-- UIFactoryPyQt5
+  FormularioBusqueda --> UIFactory
+  FormularioBusqueda --> VentanaPrincipal
+  FormularioBusqueda --> MenuNavegacion
+  FormularioBusqueda --> TablaResultados
+  UIFactoryTkinter ..> VentanaPrincipal : crea familia Tk
+  UIFactoryPyQt5 ..> VentanaPrincipal : crea familia Qt
+}
+
+class main
+
+main ..> Config : 1. lee .env
+main ..> FabricaRepositorio : 2. fabrica_para(entorno)
+main ..> UIFactory : 3. fabrica_ui_para(ui)
+FormularioBusqueda --> Repositorio : listar()
+FabricaRepositorio ..> Logger
+FabricaRepositorio ..> Config
+UIFactory ..> Config
+@enduml

@@ -1,0 +1,4 @@
+=== BOLETA DE NOTAS ===
+POO II: 16.50
+Estructuras Discretas: 14.00
+Calculo: 12.75
