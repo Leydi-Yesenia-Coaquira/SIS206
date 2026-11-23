@@ -1,0 +1,42 @@
+[
+  {
+    "codigo": 1001,
+    "nombre": "leydi coaquira",
+    "ppa": 15.0,
+    "notas": [
+      14.0,
+      15.0,
+      16.0
+    ]
+  },
+  {
+    "codigo": 1002,
+    "nombre": "leydi zapana",
+    "ppa": 14.33,
+    "notas": [
+      15.0,
+      16.0,
+      12.0
+    ]
+  },
+  {
+    "codigo": 1003,
+    "nombre": "yesenia coaquira",
+    "ppa": 11.67,
+    "notas": [
+      11.0,
+      4.0,
+      20.0
+    ]
+  },
+  {
+    "codigo": 1000,
+    "nombre": "yesenia coaquira zapana",
+    "ppa": 16.67,
+    "notas": [
+      20.0,
+      10.0,
+      20.0
+    ]
+  }
+]
